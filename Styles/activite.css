@@ -1,0 +1,150 @@
+@charset "utf-8";
+*{
+    margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-image:url('../Images/purplee.jpg');
+}
+
+.description{
+	color:white;
+	padding: 20px;
+	background-color: rgba(60, 41, 113, 0.3);
+	border-radius:5px;
+	text-align:justify;
+	margin-bottom: 30px;
+}
+.description h2{
+	font-family: 'Voltage', Arial, sans-serif;
+	text-align:center;
+}
+main {
+	padding: 20px;
+	display: block;
+	unicode-bidi: isolate;
+}
+article {
+	gap: 20px;
+	background-size: cover;
+	background-position: center;
+	padding: 100px;
+	margin-bottom: 50px;    
+	border-radius: 10px;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease-in-out;
+	display: none;
+	animation: fade 1.5s;
+	height: 550px;
+	width: auto;
+	object-fit: cover;
+}
+article h2 {
+	font-size: 48px;
+	text-align: left;
+	margin: 0 0 20px 0;
+}
+article h2 + p {
+	font-size: 18px;
+	margin-top: 20px;
+}
+.arrows button {
+	background: rgba(0, 0, 0, 0.5);
+	color: #fff;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	font-size: 35px;
+	border-radius:8px;
+}
+.slideshow-container {
+	max-width: 1000px;
+	position: relative;
+	margin: auto;
+}
+.presentation{
+	position: relative;
+	max-width: 40%;
+	color: white;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+	background: rgba(0, 0, 0, 0.6);
+	padding: 10px;
+	border-radius: 8px;
+	min-width: 300px;
+}
+
+@media (max-width: 500px){
+	.presentation{
+		transform: translate(-70px);
+		margin-left: -20px;
+		transition: transform 0.5s ease, margin-left 0.5s ease;
+	}
+}
+
+
+.text {
+	color:white;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius:5px;
+	text-align:justify;}
+h2 {
+	text-decoration: underline;
+	text-decoration-color: #f7a9fc;
+	text-underline-offset: 5px;
+	color:#f7a9fc;
+	text-shadow: 1px 0px 10px #f7a9fc;
+}
+img:not(#logo_nav){
+	width: 150px;
+	height: 90px;
+	margin-left : 50px;
+	border-radius: 10px;
+}
+.détails{
+	margin-top: 20px;
+	color:white;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.3);
+	text-align: center;
+	border-radius:5px;
+}
+.next {
+	right: 0;
+}
+.article {
+	animation-name: article;
+	animation-duration: 1.5s;
+}
+article.active {
+	display: block;
+}
+@keyframes fade {
+	from {
+		opacity: 0.4;
+	}
+	to {
+		opacity: 1;
+	}
+ }
+.prev, .next {
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: auto;
+	padding: 16px;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	transition: 0.6s ease;
+	user-select: none;
+	border-radius: 3px 0 0 3px;
+}
+.prev {
+	left: 0;
+}
+.prev:hover, .next:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+

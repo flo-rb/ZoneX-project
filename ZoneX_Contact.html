@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Contact</title>
+		<link rel="icon" href="Images/logositecarre.png" type="image/png">
+		<link rel="stylesheet" href="./Styles/contact.css" type="text/css">
+		<link rel="stylesheet" href="./Styles/nav&footer.css" type="text/css" >
+	</head>
+	<body>
+		<nav class="main-nav">
+			<a href="./index.html" class="accueil"><img id="logo_nav" src="./Images/logovioletbr.png" alt="ZoneX"> </a>
+			<a href="./index.html" class="accueil">Accueil</a>
+			<a href="ZoneX_Activité.html">Activités</a>
+			<a class="ici" href="./ZoneX_Contact.html">Formulaire</a>
+		</nav>
+		
+		<main>
+			<div class="contact">
+				<h1>Contactez-nous</h1>
+				<div id="map">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d803.4657622356939!2d2.3367437408600824!3d48.84695364299198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v1731054655875!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+				<div id="text">
+					<p>E-mail : ZoneX@gmail.fr</p>
+					<p>Téléphone : 01 24 08 04 00</p>
+					<p>Adresse postale : Av.X, 75006 Paris, France</p>
+				</div>
+			</div>
+			
+			<div class="form">
+				<h1> Vous voulez venir jouer ? Remplissez ce formulaire de réservation !</h1>
+				<form>
+					<div class="un">
+						<label for="id">ID</label>
+						<input id="id" name="id" type="text" pattern="^[A-Za-z0-9]{6}$" placeholder="Identifiant" required>
+						<div id="idno">
+							<label for="noID">Je n'ai pas d'<abbr title="Avec un ID, tout votre historique de jeu sera enregistré">ID</abbr></label>
+							<input type="checkbox" id="noID" name="noID">
+						</div>
+					</div>					
+					<div id="inscrire" class="inscrire">
+						<div class="un">
+							<label for="family_name">nom</label>
+							<input id="family_name" name="family_name" type="text" required>
+						</div>
+						
+						<div class="un">
+							<label for="email">e-mail</label>
+							<input id="email" name="email" type="text" pattern=".*@.*\..*" placeholder="***@**.**" required>
+						</div>
+						
+						<div class="un">
+							<label for="tel">téléphone</label>
+							<input id="tel" name="tel" type="tel" pattern="[0-9]{10}" placeholder="xx xx xx xx xx" required>
+						</div>
+						
+						<button type="button" onclick="getId()">générer un ID</button>
+					</div>
+					<div class="un">
+						<label for="date">Date (du lundi au samedi)</label>
+						<input id="date" name="date" type="date" min="2024-12-21" required>
+					</div>
+					<div class="un">
+						<label for="nb_person">Combien de personnes ?</label>
+						<input id="nb_person" name="nb_person" type="number" min="1" max="5" required>
+					</div>
+					<fieldset>
+						<legend>Sélectionnez le type de jeu et la période pendant laquelle vous souhaitez jouer</legend>
+						<div class="un">
+							<label for="start_time"> Quand voulez-vous jouer ? (heures d'ouverture: 12-18h, et 20-23h)</label>
+							<input id="start_time" name="start_time" type="time" required>
+						</div>
+					</fieldset>
+					<div id="heureNo">Vous devez sélectionner le temps dans la période facultative(12h-18h ou 20h-23h)</div>
+					<div class="un">
+						<label for="conf">Je garantis que mon âge est entre 16 (inclu) et 40 ans (inclu)</label>
+						<input id="conf" name="confirmation" type="checkbox" required>
+					</div>
+					<button type="submit" id="submit">Soumettre</button>
+					<button type="reset" id="annuler">Annuler</button>
+				</form>
+				
+				<script>
+					const noID = document.getElementById('noID');
+					const inscrire = document.getElementById('inscrire');
+					inscrire.classList.add('hidden');
+
+					noID.addEventListener('change', function() {
+						if (this.checked) {
+							inscrire.classList.remove('hidden');
+							inscrire.classList.add('show'); 
+						} 
+						else {
+							inscrire.classList.add('hidden');
+							inscrire.classList.remove('show');  
+						}
+					});
+					function getId() {
+						const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+						let randomId = '';
+						for (let i = 0; i < 6; i++) {
+							const randomIndex = Math.floor(Math.random() * chars.length);
+							randomId += chars[randomIndex];
+						}
+						id.value = randomId;
+					}
+					
+					document.getElementById('date').addEventListener('input', function(event) {
+						const selectedDate = new Date(event.target.value);
+						if (selectedDate.getDay() === 0) {
+							alert('Vous ne pouvez pas sélectionner un dimanche.');
+							event.target.value = '';
+						}
+					});
+					
+					document.getElementById('submit').addEventListener('click', function(event) {
+						const startTime = document.getElementById('start_time').value;
+						const timeRegex = /^(\d{2}):(\d{2})$/; 
+						const match = startTime.match(timeRegex);
+						if (!match) {
+							return; 
+						}
+						const hours = parseInt(match[1], 10);
+						const minutes = parseInt(match[2], 10); 
+
+						const isValidTime = (hours >= 12 && hours < 18) || (hours >= 20 && hours < 23);
+
+						if (!isValidTime) {
+							document.getElementById('heureNo').style.display = 'block';
+							event.preventDefault();
+						} else {
+							document.getElementById('heureNo').style.display = 'none';
+						}
+					});
+				</script>
+			</div>
+		</main>
+		<footer>
+			<div class="footer-logo">
+				<img class="logoIUT" src="./Images/logoIUT.png" alt="Logo IUT" >
+			</div>
+			<div class="footer-links">
+				<p><a href="./Rapport_cwad.docx">Rapport en version texte</a></p>
+				<p><a href="./Rapport_cwad.pdf">Rapport au format PDF</a></p>
+			</div>
+			<div class="footer-members">
+				<p>Membres du groupe: Florence Regnier-Beck, Pompaline Wan, Meng Yuan</p>
+			</div>
+		</footer>
+	</body>
+</html>
